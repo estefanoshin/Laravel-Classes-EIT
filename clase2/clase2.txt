@@ -1,0 +1,45 @@
+REGEXP || LIKE //Mysql, busca cosas que contengan el string
+
+//--------------------------------------
+composer : https://getcomposer.org/download/
+
+listado de componenes que necesito : https://packagist.org/
+
+//--------------------------------------
+composer on cmd:
+//crea el proyecto: proyecto1, con framework de laravel instalado
+//apunta al usuario laravel / proyecto laravel -> de la misma manera en https://github.com/laravel/laravel
+composer create-project "laravel/laravel" proyecto1
+
+Route::<metodo_estatico>
+
+metodo_estatico: get, post, put(recibir archivos)
+
+//comienza el Laravel
+php artisan serve
+
+//-------------------------------
+Route::get('/home', homeController@index);
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+//-------------------------------
+
+resources/views/welcome.blade.php
+
+en : routes/web.php
+
+//-------------------------------
+
+php artisan make:controller <nombre_controlador> <optional: resource or not>
+ej : php artisan make:controller homeController
+
+en web.php:
+Route::get('/', 'homeController@index'); //nombre_controller@nombre_metodo
+
+//-------------------------------
+
+//instala todas las dependencias:
+composer install
