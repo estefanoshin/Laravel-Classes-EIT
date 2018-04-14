@@ -1,0 +1,8 @@
+@yield('name') -> @extends('from_where')
+
+@section('nombre_del_yeld_a_anidar')
+@endsection
+
+//---------------------
+
+php artisan make:controller nombreControlador -r //crea metodos predefinidos
