@@ -1,0 +1,159 @@
+ORM = Object Relational Mapping
+
+Active record : Implementacion del ORM
+ej :
+$campaign->fill(request()->all);
+$campaign->save();
+
+//-----------------------
+app : Models
+app->Console : Comandos de chrome
+
+app->Http->Controllers : Controllers
+app->Http->Middleware : Punto de acceso previo a un standard, ej: validaciones
+app->Providers : Tareas genericas que se pueden usar muchas veces
+
+bootstrap : Maneja la inicializacion del proceso (Le da permisos de escritura a 2 directorios, 'Bootstrap/cache' y 'storage')
+config : archivos de configuracion del proyecto (filesystems.php-> tiene todo los directorios para el file store)
+database : archivos de db
+public : publicos y visibles (los js y css son los minificados)
+resources->assets : css y js para utilizar
+resources->view : Views
+
+routes : Rutas
+routes->api : funcionamiento de la aplicacion como API
+
+storage : cache de la aplicacion + logs
+
+tests : tests unitarios para probar cosas
+//-----------------------
+//---------- <RUTAS>
+ej :
+Route::<metodo>('<directorio>',------)
+       MATCH(['GET',<value>],'<directorio>',)
+       RESOURCE('prod', ct);
+
+Route::get('usuario/{id}', function($id){
+  return 'Usuario'.$id;
+}); //{id} es obligatorio, o no se puede acceder a la ruta
+
+Route::get('posts/{post}/comments/{comment}', function($postId, $commentld){
+  //url termina siendo => https://random_site_name.com/posts/postNumber1/comments/commentNumber98045
+});
+
+Route::get('user/{name?}', function ($name = null) {
+  //$number no es obligatorio
+   return $name;
+});
+
+//-----------------------
+//---------- Views
+Blade : Sistema de vistas de laravel
+
+en web.php :
+//<!-- View stored in resources/views/hola.blade.php -->
+Route::get('/', function () {
+  //dentro de views->carpeta llamada 'holamundo'->dentro: carpeta llamada 'hola'
+   return view(‘holamundo.hola’);
+});
+
+//-----------------------
+//---------- Layouts
+No se pueden usar el @yield y el @section en el mismo archivo
+@section :
+      @section('section_name', 'section_content')
+      @endsection
+
+      @section('section_name')
+      @endsection
+
+//---------- Compact
+compact ['name' => $name];
+//or....
+['name' => $name]
+
+//-----------------------
+{{!! HTML !!}} //permite mostrar un script en html
+{{ HTML }} //Si el contenido es un HTML, lo imprime como string (para evitar XSS)
+
+//----------------------- Funciones de control de Blade
+IF :
+@if (count($records) === 1)
+ I have one record!
+//////@elseif (count($records) > 1) //Estas 4 lineas pueden no estar
+//////I have multiple records!
+//////@else
+//////I don't have any records!
+@endif
+//---------
+ISSET & EMPTY :
+@isset($records)
+  // $records is defined and is not null...
+@endisset
+
+@empty($records)
+  // $records is "empty"...
+@endempty
+//---------
+SWITCH :
+@switch($i)
+   @case(1)
+       First case...
+       @break
+
+   @case(2)
+       Second case...
+       @break
+
+   @default
+       Default case...
+@endswitch
+//---------
+FOR :
+@for ($i = 0; $i < 10; $i++)
+   The current value is {{ $i }}
+@endfor
+//---------
+FOREACH :
+@foreach ($users as $user)
+   <p>This is user {{ $user->id }}</p>
+@endforeach
+FORELSE : (igual a foreach pero con posibilidad de responder a array vacío):
+@forelse ($users as $user) //Si en el foreach no muestra resultados, ejecuta el forelse
+   <li>{{ $user->name }}</li>
+@empty
+   <p>No users</p>
+@endforelse
+//---------
+WHILE :
+@while (true)
+   <p>I'm looping forever.</p>
+@endwhile
+//----------
+@foreach ($users as $user)
+   @if ($user->type == 1)
+       @continue //if true, continue
+   @endif
+
+   <li>{{ $user->name }}</li>
+
+   @if ($user->number == 5)
+       @break //if true, brake
+   @endif
+@endforeach
+//------------ SUB-VIEWS
+@include('shared.errors') //Lo trae de cualquier lado(A diferencia del yield y section)
+
+//-----------------------------------------------
+//---------- QueryBuilder
+Todo lo que viene de la DB son colecciones (no son arrays)
+son colecciones porque se pueden ejecutar funciones sobre las mismas (los helpers)
+
+$user = DB::table('users')->where('name', 'John')->first(); //Me devuelve solo el 1er resultado (esta instanciado)
+
+algunos metodos:
+all() //devuelve colecciones, necesito un foreach
+get() //devuelve colecciones, necesito un foreach
+first() //devuleve el objeto instanciado
+
+$email = DB::table('users')->where('name', 'John')->value('email'); //Me devuelve el dato, no necesita instanciarlo ni nada
