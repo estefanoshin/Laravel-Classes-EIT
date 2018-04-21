@@ -1,0 +1,19 @@
+ORM (Object relational mapping) : Utiliza el modelo para trabajar con la DB
+
+basic use of php artisan make:controller (auto-functions): //Mediante el uso del Route::resource
+// https://laravel.com/docs/5.6/controllers#resource-controllers
+  index:Listado
+  show:muestra info del producto especifico
+  create: visualizacion de formulario de alta
+  store: salva el formulario de alta
+  update: actualiza
+  edit: edita
+  destroy: delete
+
+//-------------------- resources!!!
+Route::resource('photos', ....); //me dice que tengo todas los metodos disponibles
+
+//Use only specific methods from the controller (index() && show())
+Route::resource('photos', 'PhotoController')->only(['index', 'show']);
+
+developer.mozilla (methods for forms)

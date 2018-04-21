@@ -1,0 +1,16 @@
+- Explicar el workflow rutas - controlador - vistas rapidamente
+
+- Configuracioin de base de datos:
+	-ingresar al archivo config/database.php y verificar que el driver por defecto sea mysql
+	-configurar los datos del driver (configurar el archivo del directorio raiz .env, esto es para no exponer los datos en el archivo 
+	PHP y si por ejemplo lo subo a github no saldran las credenciales en el, es decir, por seguridad se ponen en el archivo .env)
+
+	-> subir archivos modificados:
+			-> config/database.php
+			-> .env
+
+
+- Creacion de modelo productos y query de selecciuon
+- Creacion de controlador y metodo
+- Creacion de vista
+- Modificacion de ruta para incluir listado de productos
