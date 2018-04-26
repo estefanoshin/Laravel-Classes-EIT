@@ -22,6 +22,14 @@ class productosController extends Controller
     }
 
     public function store(Request $request){
+
+        $request->validate([
+            'nombre'=>'required|max:250',
+            'cod_categoria'=>'required|integer',
+            'precio'=>'integet',
+            'stock'=>'integer';
+        ]);
+
         $nombre = $request->nombre;
         $cod_categoria = $request->cod_categoria;
         $precio = $request->precio;
@@ -36,5 +44,5 @@ class productosController extends Controller
         return redirect('/productos');
     }
 
-    
+
 }

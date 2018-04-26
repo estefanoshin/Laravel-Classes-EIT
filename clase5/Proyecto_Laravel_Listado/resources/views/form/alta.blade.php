@@ -1,3 +1,8 @@
+@if($errors->any())
+	<pre>
+		{{$errors}}
+	</pre>
+@endif
 <form method="post" action="{{ route('store') }}">
 {{ csrf_field() }}
 	Nombre : <input type="text" name="nombre" placeholder="Ingrese Nombre">

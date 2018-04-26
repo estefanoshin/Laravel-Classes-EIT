@@ -1,0 +1,85 @@
+//Laravel asume que el array es un Json
+Route::get('/', function(){
+	return [1,2,3];
+});
+//--------------------------------------
+
+Route::get('home', function () {
+   //Puedo setear el status code en el return
+   return response('Hello World', 200)
+   		->header('Content-Type', 'text/plain');
+});
+
+//--------------------------------------
+
+Route::post('user/profile', function () {
+   // back() me vuelve atras
+   // withInput() me pone todos los inputs que puso el usuario
+   return back()->withInput();
+});
+
+//--------------------------------------
+
+// Para darle un parametro en el redirect del return
+return redirect()->action(
+   'UserController@profile', ['id' => 1]
+);
+
+//--------------------------------------
+
+response->json([$dato]) //devuelve un response como json
+
+//--------------------------------------
+
+trait(parecido a una clase) : Sirve para agrupar funcionalidades especificas de una manera coherente
+	- El trait no se puede instanciar
+
+//EJEMPLO :
+trait Hola {
+    public function decirHola() {
+        echo 'Hola ';
+    }
+}
+trait Mundo {
+    public function decirMundo() {
+        echo 'Mundo';
+    }
+}
+class MiHolaMundo {
+    use Hola, Mundo;	//USA LOS METODOS DE LOS TRAIT
+    public function decirAdmiración() {
+        echo '!';
+    }
+}
+$o = new MiHolaMundo();
+$o->decirHola();		//USA UN METODO DEL TRAIT
+$o->decirMundo();		//USA UN METODO DEL TRAIT
+$o->decirAdmiración();	//USA UN METODO DE LA CLASE
+
+//--------------------------------------
+
+public function store(Request $request)
+{
+   $request->validate([
+       'title' => 'required|unique:posts|max:255',
+       //require = is required
+       //unique:posts = 'title' has to be unique on the DB, in the table 'posts'
+       //mad:255 = maximum of 255 characters
+
+       'body' => 'required',
+   ]);
+
+  // Si valida correctamente, sigue ejecutando el codigo
+  // Si FALLA, CORTA EL CODIGO y devuelve un array de ERRORES (Hace automaticamente un back() y crea el objeto llamado $errors, disponible para la vista)
+}
+
+//Puedo ver si hay algun error utilizando :
+@if ($errors->any())
+	<ALGUN HTML POR ACA QUE MUESTRE EL MSJ DE ERROR>
+@endif
+
+//-------------------------------------
+@if ($errors->has('nombre_input'))
+//me muestra algun error de antemano
+	{{ $errors->first('nombre_input')}}
+@endif
