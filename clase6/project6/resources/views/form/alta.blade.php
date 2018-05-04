@@ -66,7 +66,9 @@
 </div>
 </fieldset>
 
-	<button class="btn btn-outline-success" type="submit">Agregar</button>
+	<button class="btn btn-outline-success" type="submit">
+		{{ $productos->cod_producto ? 'Modificar' : 'Agregar' }}
+	</button>
 </form>
 
 <script type="text/javascript" src="{{ asset('js/formValidation.js') }}"></script>

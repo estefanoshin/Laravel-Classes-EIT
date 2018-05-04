@@ -1,0 +1,31 @@
+Helpers :
+<h1>{{ app_path() }}</h1>
+<h1>{{ base_path() }}</h1>
+<h1>{{ storage_path() }}</h1>
+<h1>{{ resource_path() }}</h1>
+<h1>{{ str_slug('ABC ASLFS') }}</h1> <!-- Se puede utilizar en la url para hacerlo amigable -->
+<h1>{{url('user/profile', [1])}}</h1>
+{{session()->put('usuario123')}}
+{{session()->get('usuario123')}}
+
+//------------------------------------------------------------------
+ORM : El orm que usa Laravel es Eloquent
+Los modelos de Eloquent estan en la clase : Illuminate/Database/Eloquent/Model
+
+protected = $primaryKey = 'user_id';
+public $incrementing = false;
+public $timestamps = false;
+
+//cambiar nombre de los timestamps
+cont CREATED_AT = 'creation_date';
+cont UPDATED_AT = null; //si por ejemplo no quiero usar UPDATED_AT
+
+//TRAER INFO DE UNA TABLA CON MI MODELO, desde el CONTROLLER
+ej: tabla flights
+
+use App/Flight;
+
+$flights = AppFlight::all();
+//o~~~ instanciando
+$flights = new Flight();
+$flights = flights()->get();
